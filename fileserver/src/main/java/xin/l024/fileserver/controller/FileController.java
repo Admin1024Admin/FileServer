@@ -29,16 +29,19 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
-
+    
+    //首页，获取所有文件列表
     @RequestMapping(value = "/")
     public String index(Model model) {
         model.addAttribute("files", fileService.listFiles());
         return "index";
     }
+    //登录界面
     @GetMapping("/login")
     public String login(){
         return "login";
     }
+    //登录错误
     @GetMapping("/login-error")
     public String error(Model model){
         System.out.println("xxxxxxxxx");
@@ -46,7 +49,8 @@ public class FileController {
         model.addAttribute("errorMsg", "登陆失败，账号或者密码错误！");
         return "login";
     }
-
+    
+    //跳转错误页面
     @GetMapping("/error")
     public String error(){
         return "error";
@@ -145,7 +149,8 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
         }
     }
-
+    
+    //根据id删除文件
     @GetMapping("/file/del/{id}")
     public String del(@PathVariable("id") Long id,Model model){
         System.out.println("id--->"+id);
